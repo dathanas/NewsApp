@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NewsApp</string>
+    <string name="article_cell_title">article_title</string>
+    <string name="article_cell_description">article_description</string>
+</resources>
