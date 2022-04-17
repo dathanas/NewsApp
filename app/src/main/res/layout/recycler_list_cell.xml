@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/articleImage"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             android:layout_weight="1"
             android:scaleType="centerCrop" />
 
@@ -34,8 +34,7 @@
                 android:id="@+id/articleTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:lines="1"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -43,10 +42,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:lines="4"
-                android:maxLines="4"
-                android:minLines="4"
-                android:textSize="12sp" />
+                android:maxLines="5"
+                android:minLines="2"
+                android:textSize="11sp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
