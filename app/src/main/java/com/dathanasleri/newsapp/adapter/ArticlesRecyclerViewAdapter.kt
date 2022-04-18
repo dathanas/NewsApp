@@ -8,25 +8,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.dathanasleri.newsapp.R
-import com.dathanasleri.newsapp.models.ArticleData
+import com.dathanasleri.newsapp.models.Article
 import com.squareup.picasso.Picasso
 
-
 class ArticlesRecyclerViewAdapter(private val onArticleListener: OnArticleListener): RecyclerView.Adapter<ArticlesRecyclerViewAdapter.ArticleViewHolder>() {
-    private var articles = ArrayList<ArticleData>()
+    private var articles = ArrayList<Article>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setUpdatedData(articles : ArrayList<ArticleData>) {
+    fun setUpdatedData(articles : ArrayList<Article>) {
         this.articles = articles
         notifyDataSetChanged()
     }
+
     class ArticleViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val articleImage: ImageView = view.findViewById(R.id.articleImage)
         private val articleTitle: TextView = view.findViewById(R.id.articleTitle)
         private val articleDescription: TextView = view.findViewById(R.id.articleDescription)
-        private val currentArticle: ArticleData? = null
 
-        fun bind(data: ArticleData, clickListener: OnArticleListener) {
+        fun bind(data: Article, clickListener: OnArticleListener) {
             articleTitle.text = data.title
             articleDescription.text = data.description
 
@@ -53,7 +52,7 @@ class ArticlesRecyclerViewAdapter(private val onArticleListener: OnArticleListen
     }
 
     interface OnArticleListener {
-        fun onArticleClick(article: ArticleData)
+        fun onArticleClick(article: Article)
 
     }
 }

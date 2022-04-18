@@ -13,13 +13,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dathanasleri.newsapp.adapter.ArticlesRecyclerViewAdapter
-import com.dathanasleri.newsapp.models.ArticleData
+import com.dathanasleri.newsapp.models.Article
 import com.dathanasleri.newsapp.viewmodel.ArticleActivityViewModel
 
 class ArticlesListFragment : Fragment(), ArticlesRecyclerViewAdapter.OnArticleListener {
 
     private lateinit var articlesRecyclerAdapter: ArticlesRecyclerViewAdapter
-    //private lateinit var articlesList: List<ArticleData>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +34,7 @@ class ArticlesListFragment : Fragment(), ArticlesRecyclerViewAdapter.OnArticleLi
     private fun initViewModel(view: View) {
         val articlesRecyclerView = view.findViewById<RecyclerView>(R.id.articlesRecyclerView)
         articlesRecyclerView.layoutManager = LinearLayoutManager(activity)
+        //add separator between cells
         val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         articlesRecyclerView.addItemDecoration(decoration)
 
@@ -60,7 +60,8 @@ class ArticlesListFragment : Fragment(), ArticlesRecyclerViewAdapter.OnArticleLi
             ArticlesListFragment()
     }
 
-    override fun onArticleClick(article: ArticleData) {
+    //open article website
+    override fun onArticleClick(article: Article) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(article.url)))
     }
 }

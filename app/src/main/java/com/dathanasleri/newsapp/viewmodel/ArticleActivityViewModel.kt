@@ -17,6 +17,7 @@ class ArticleActivityViewModel: ViewModel() {
     }
 
     fun makeAPICall() {
+        //Make API call in IO and keep the response in articlesListLiveData
         viewModelScope.launch(Dispatchers.IO) {
             val retroInstance = RetroInstance.getRetroInstance().create(RetroService::class.java)
             val response = retroInstance.getDataFromAPI(" ")
