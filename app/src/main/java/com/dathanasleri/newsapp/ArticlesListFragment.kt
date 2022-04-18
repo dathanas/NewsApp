@@ -1,5 +1,7 @@
 package com.dathanasleri.newsapp
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,11 +13,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dathanasleri.newsapp.adapter.ArticlesRecyclerViewAdapter
+import com.dathanasleri.newsapp.models.ArticleData
 import com.dathanasleri.newsapp.viewmodel.ArticleActivityViewModel
 
-class ArticlesListFragment : Fragment() {
+class ArticlesListFragment : Fragment(), ArticlesRecyclerViewAdapter.OnArticleListener {
 
     private lateinit var articlesRecyclerAdapter: ArticlesRecyclerViewAdapter
+    //private lateinit var articlesList: List<ArticleData>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +38,7 @@ class ArticlesListFragment : Fragment() {
         val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         articlesRecyclerView.addItemDecoration(decoration)
 
-        articlesRecyclerAdapter = ArticlesRecyclerViewAdapter()
+        articlesRecyclerAdapter = ArticlesRecyclerViewAdapter(this)
         articlesRecyclerView.adapter = articlesRecyclerAdapter
     }
 
@@ -54,5 +58,9 @@ class ArticlesListFragment : Fragment() {
         @JvmStatic
         fun newInstance() =
             ArticlesListFragment()
+    }
+
+    override fun onArticleClick(article: ArticleData) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(article.url)))
     }
 }

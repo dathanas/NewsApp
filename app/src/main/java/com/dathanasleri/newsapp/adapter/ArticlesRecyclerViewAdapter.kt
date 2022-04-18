@@ -12,7 +12,7 @@ import com.dathanasleri.newsapp.models.ArticleData
 import com.squareup.picasso.Picasso
 
 
-class ArticlesRecyclerViewAdapter: RecyclerView.Adapter<ArticlesRecyclerViewAdapter.MyViewHolder>() {
+class ArticlesRecyclerViewAdapter(private val onArticleListener: OnArticleListener): RecyclerView.Adapter<ArticlesRecyclerViewAdapter.ArticleViewHolder>() {
     private var articles = ArrayList<ArticleData>()
 
     @SuppressLint("NotifyDataSetChanged")
@@ -20,30 +20,40 @@ class ArticlesRecyclerViewAdapter: RecyclerView.Adapter<ArticlesRecyclerViewAdap
         this.articles = articles
         notifyDataSetChanged()
     }
-    class MyViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class ArticleViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val articleImage: ImageView = view.findViewById(R.id.articleImage)
         private val articleTitle: TextView = view.findViewById(R.id.articleTitle)
         private val articleDescription: TextView = view.findViewById(R.id.articleDescription)
+        private val currentArticle: ArticleData? = null
 
-        fun bind(data: ArticleData) {
+        fun bind(data: ArticleData, clickListener: OnArticleListener) {
             articleTitle.text = data.title
             articleDescription.text = data.description
 
             val url = data.urlToImage
             Picasso.get().load(url).into(articleImage)
+
+            itemView.setOnClickListener {
+                clickListener.onArticleClick(data)
+            }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_list_cell, parent, false)
-        return MyViewHolder(view)
+        return ArticleViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(articles[position])
+    override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
+        holder.bind(articles[position], onArticleListener)
     }
 
     override fun getItemCount(): Int {
         return articles.size
+    }
+
+    interface OnArticleListener {
+        fun onArticleClick(article: ArticleData)
+
     }
 }
